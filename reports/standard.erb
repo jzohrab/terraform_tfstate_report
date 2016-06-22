@@ -1,0 +1,68 @@
+<% @hsh.keys.each do |m| %>
+Module: <%= m %>
+<%= %w(
+id
+depends_on
+instance
+cluster
+datacenter
+disk.#
+disk.0.datastore
+disk.0.iops
+disk.0.size
+disk.0.template
+disk.1.datastore
+disk.1.iops
+disk.1.size
+disk.1.template
+dns.#
+dns
+domain
+folder
+gateway
+id
+memory
+name
+network_interface.#
+ip
+network_interface.0.label
+network_interface.0.subnet_mask
+vcpu
+).join("\t")
+%>
+<% @hsh[m]['resources'].each do |r| %>
+<%=
+  [
+    r['id'],
+    r['depends_on'],
+    r['instance'],
+    r['attributes']['cluster'],
+    r['attributes']['datacenter'],
+    r['attributes']['disk.#'],
+    r['attributes']['disk.0.datastore'],
+    r['attributes']['disk.0.iops'],
+    r['attributes']['disk.0.size'],
+    r['attributes']['disk.0.template'],
+    r['attributes']['disk.1.datastore'],
+    r['attributes']['disk.1.iops'],
+    r['attributes']['disk.1.size'],
+    r['attributes']['disk.1.template'],
+    r['attributes']['dns_servers.#'],
+    [ r['attributes']['dns_servers.0'], r['attributes']['dns_servers.1'], r['attributes']['dns_servers.2'] ].compact.join(', '),
+    r['attributes']['domain'],
+    r['attributes']['folder'],
+    r['attributes']['gateway'],
+    r['attributes']['id'],
+    r['attributes']['memory'],
+    r['attributes']['name'],
+    r['attributes']['network_interface.#'],
+    [ r['attributes']['network_interface.0.ipv4_address'], r['attributes']['network_interface.0.ipv4_prefix_length'] ].compact.join('/'),
+    r['attributes']['network_interface.0.label'],
+    r['attributes']['network_interface.0.subnet_mask'],
+    r['attributes']['vcpu']
+  ].join("\t")
+%>
+
+<% end %>
+
+<% end %>

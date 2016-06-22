@@ -1,0 +1,7 @@
+|name|ip |id |cluster|module|
+|--- |---|---|---    |---   |
+<% @hsh.keys.each do |m| %>
+<% @hsh[m]['resources'].each do |r| %>
+|<%= [ r['attributes']['name'], r['attributes']['network_interface.0.ipv4_address'] || '&nbsp;', r['id'], r['attributes']['cluster'], m ].join('|') %>|
+<% end %>
+<% end %>
